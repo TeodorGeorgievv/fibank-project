@@ -6,19 +6,19 @@ import RegistrationForm from "./pages/RegistrationForm";
 
 function App() {
   return (
-    <Layout>
-      <Switch>
-        <Route path="/" exact>
-          <Redirect to="/login" />
-        </Route>
-        <Route path="/login">
-          <LoginPage />
-        </Route>
-        <Route>
-          <RegistrationForm />
-        </Route>
-      </Switch>
-    </Layout>
+      <Layout>
+        <Switch>
+          <Route path="/" exact>
+            <Redirect to="/login" />
+          </Route>
+          <Route path="/login">
+            <LoginPage />
+          </Route>
+          <Route>
+            <RegistrationForm />
+          </Route>
+        </Switch>
+      </Layout>
   );
 }
 
