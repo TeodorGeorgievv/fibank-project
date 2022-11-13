@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import classes from "./LoginForm.module.css";
 import { Link } from "react-router-dom";
 import Button from "../UI/Button";
@@ -14,7 +14,7 @@ const LoginForm = () => {
             <input type="text" placeholder="Потребителско име" />
           </div>
           <div className={classes.control}>
-            <input type="text" placeholder="Парола" />
+            <input type="password" placeholder="Парола" />
           </div>
           <div className={classes.passBtn}>
             <Link to="/register">Забравена парола</Link>

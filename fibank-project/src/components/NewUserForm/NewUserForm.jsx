@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import classes from "./NewUserForm.module.css";
 import Select from "react-select";
+import zxcvbn from "zxcvbn";
 
 const options = [
   { value: "burgas", label: "Бургас" },
@@ -12,6 +13,17 @@ const options = [
 ];
 
 const NewUserForm = () => {
+  const [score, setScore] = useState(0);
+
+  const testStrengthPassword = (e) => {
+    if (e.target.value !== "") {
+      let pass = zxcvbn(e.target.value);
+      setScore(pass.score);
+    } else {
+      setScore(0);
+    }
+  };
+
   return (
     <section className={classes.form}>
       <div className={classes.heading}>
@@ -51,14 +63,18 @@ const NewUserForm = () => {
           <div className={classes.control}>
             <div className={classes.userData}>
               <input type="text" placeholder="Потребителско име" />
-              <input type="text" placeholder="Парола" />
+              <input
+                onChange={testStrengthPassword}
+                type="password"
+                placeholder="Парола"
+              />
               <div className={classes.indicator}>
-                <span className={classes.none}>1</span>
-                <span className={classes.weak}>2</span>
-                <span className={classes.medium}>3</span>
-                <span className={classes.average}>4</span>
-                <span className={classes.good}>5</span>
-                <span className={classes.strong}>6</span>
+                <span data-score={score} className={classes.none} />
+                <span data-score={score} className={classes.weak} />
+                <span data-score={score} className={classes.medium} />
+                <span data-score={score} className={classes.average} />
+                <span data-score={score} className={classes.good} />
+                <span data-score={score} className={classes.strong} />
               </div>
               <input type="text" placeholder="Повтори парола" />
             </div>
