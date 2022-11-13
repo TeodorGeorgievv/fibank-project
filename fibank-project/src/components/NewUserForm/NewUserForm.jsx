@@ -1,18 +1,11 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import classes from "./NewUserForm.module.css";
-import Select from "react-select";
+import Dropdown from "../UI/Dropdown";
 import zxcvbn from "zxcvbn";
 
-const options = [
-  { value: "burgas", label: "Бургас" },
-  { value: "varna", label: "Варна" },
-  { value: "plovdiv", label: "Пловдив" },
-  { value: "staraZagora", label: "Стара Загора" },
-  { value: "sofia", label: "София" },
-];
-
 const NewUserForm = () => {
+  const [selected, setSelected] = useState("Град");
   const [score, setScore] = useState(0);
 
   const testStrengthPassword = (e) => {
@@ -27,9 +20,13 @@ const NewUserForm = () => {
   return (
     <section className={classes.form}>
       <div className={classes.heading}>
-        <Link to="/login">
-          <h5>НАЗАД</h5>
-        </Link>
+        <div className={classes.btnContainer}>
+          <Link to="/login">
+            <h5>
+              <i class="fa fa-chevron-left"></i> Назад
+            </h5>
+          </Link>
+        </div>
         <h3 className={classes.title}>Създаване на профил</h3>
       </div>
       <div className={classes.dataTitle}>
@@ -37,22 +34,19 @@ const NewUserForm = () => {
       </div>
       <form>
         <div className={classes.control}>
-          <input type="text" placeholder="Име" />
-          <input type="text" placeholder="Фамилия" />
+          <input type="text" placeholder="Име" name="fname" />
+          <input type="text" placeholder="Фамилия" name="lname" />
         </div>
         <div className={classes.control}>
-          <Select
-            className={classes["react-select-container"]}
-            options={options}
-          />
+          <Dropdown selected={selected} setSelected={setSelected} />
           <input type="text" placeholder="ЕГН" />
         </div>
         <div className={classes.control}>
-          <input type="text" placeholder="Адрес" />
+          <input type="address" placeholder="Адрес" />
         </div>
         <div className={classes.control}>
-          <input type="text" placeholder="Email адрес" />
-          <input type="text" placeholder="Телефон" />
+          <input type="email" placeholder="Email адрес" />
+          <input type="tel" placeholder="Телефон" />
         </div>
         <div className={classes.profileTitle}>
           <h5>Профил</h5>

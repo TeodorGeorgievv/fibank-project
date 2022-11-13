@@ -16,6 +16,13 @@
   padding-left: 2.5em;
 }
 
+.heading .btnContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 0.8rem;
+}
+
 .profileTitle {
   display: flex;
   margin-top: 1em;
@@ -70,12 +77,6 @@
   padding: 0.35rem;
 }
 
-.react-select-container {
-  width: 105%;
-  text-align: left;
-  font-size: 0.8rem;
-}
-
 .pass-requirments {
   border-radius: 10px;
   font-size: 0.75em;
@@ -84,6 +85,7 @@
   padding-top: 0.5em;
   padding-right: 1.5em;
   padding-left: 0.7rem;
+  margin-right: 0.7rem;
 }
 
 .pass-requirments h5 {
