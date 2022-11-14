@@ -85,6 +85,11 @@ form {
   padding-bottom: 1.5rem;
 }
 
+.register-button span {
+  display: flex;
+  gap: 0.5rem;
+}
+
 .passBtn {
   display: flex;
 }
@@ -92,4 +97,10 @@ form {
 .passBtn:active,
 :visited {
   color: #5d9cd3;
+}
+
+@media screen and (max-width: 595px) {
+  .heading {
+    font-size: 2rem;
+  }
 }

@@ -42,3 +42,29 @@
 .dropdown .dropdown-content .dropdown-item:hover {
   background-color: #f4f4f4;
 }
+
+@media screen and (max-width: 595px) {
+  .dropdown {
+    font-size: 0.6em;
+  }
+
+  .dropdown .dropdown-content .dropdown-item {
+    padding: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.6rem;
+  }
+}
+
+@media only screen and (min-width: 889px) {
+
+  .dropdown {
+    font-size: 0.5em;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .dropdown {
+    font-size: 0.6em;
+  }
+}

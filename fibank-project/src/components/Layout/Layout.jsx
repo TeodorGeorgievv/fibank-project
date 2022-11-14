@@ -1,17 +1,16 @@
 import React from "react";
 import MainNavigation from "./MainNavigation";
-import Footer from "./Footer";
 import Background from "./Background";
+import classes from "./Layout.module.css";
 
 const Layout = (props) => {
   return (
     <>
-      <div>
-        <Background backgroundImage={"https://iili.io/y7huhx.jpg"} />
+      <Background backgroundImage={"https://iili.io/y7huhx.jpg"} />
+      <div className={classes.container}>
         <MainNavigation logo="https://iili.io/yTysl1.png" />
         <main>{props.children}</main>
       </div>
-      <Footer />
     </>
   );
 };

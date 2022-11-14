@@ -12,15 +12,14 @@ const Dropdown = ({ selected, setSelected }) => {
       >
         {selected}
         <i className="fa fa-chevron-down"></i>
-        
       </div>
       {isActive && (
         <div className={classes["dropdown-content"]}>
           {options.map((option) => (
             <div
               onClick={(e) => {
-                setSelected(option)
-                setIsActive(false)
+                setSelected(option);
+                setIsActive(false);
               }}
               className={classes["dropdown-item"]}
             >

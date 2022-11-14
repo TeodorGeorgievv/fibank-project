@@ -1,18 +1,16 @@
 import React, { useState } from "react";
-
 import useInput from "../../hooks/use-input";
-
 import { Link } from "react-router-dom";
 import classes from "./NewUserForm.module.css";
 import Dropdown from "../UI/Dropdown";
 import zxcvbn from "zxcvbn";
 
+let phoneno = /^\d{10}$/;
+const isPhone = (value) => value.match(phoneno);
+
 const isNotEmpty = (value) => value.trim() !== "";
-const isEmail = (value) => value.includes("@");
-
 const NewUserForm = () => {
-  //Validating first name input using custom hook
-
+  //Validating first and last name input using custom hook
   const {
     value: firstNameValue,
     isValid: firstNameIsValid,
@@ -31,23 +29,22 @@ const NewUserForm = () => {
     reset: resetLastName,
   } = useInput(isNotEmpty);
 
-  //Validating email input using custom hook
-
+  //Validating phone number, must be 10 digits
   const {
-    value: emailValue,
-    isValid: emailIsValid,
-    hasError: emailHasError,
-    valueChangeHandler: emailChangeHandler,
-    inputBlurHandler: emailBlurHandler,
-    reset: resetEmail,
-  } = useInput(isEmail);
+    value: phoneNumValue,
+    isValid: phoneNumIsValid,
+    hasError: phoneNumHasError,
+    valueChangeHandler: phoneNumChangeHandler,
+    inputBlurHandler: phoneNumBlurHandler,
+    reset: resetPhoneNum,
+  } = useInput(isPhone);
 
   const [selected, setSelected] = useState("Град");
   const [score, setScore] = useState(0);
 
   let formIsValid = false;
 
-  if (firstNameIsValid && lastNameIsValid && emailIsValid) {
+  if (firstNameIsValid && lastNameIsValid && phoneNumIsValid) {
     formIsValid = true;
   }
 
@@ -59,11 +56,13 @@ const NewUserForm = () => {
     }
 
     console.log("Submitted!");
-    console.log(firstNameValue, lastNameValue, emailValue);
+    console.log(firstNameValue, lastNameValue, phoneNumValue);
     resetFirstName();
     resetLastName();
-    resetEmail();
+    resetPhoneNum();
   };
+
+  //Password progress bar logic
 
   const testStrengthPassword = (e) => {
     if (e.target.value !== "") {
@@ -80,7 +79,7 @@ const NewUserForm = () => {
         <div className={classes.btnContainer}>
           <Link to="/login">
             <h5>
-              <i className="fa fa-chevron-left"></i> Назад
+              <i className="fa-solid fa-chevron-left"></i> Назад
             </h5>
           </Link>
         </div>
@@ -110,9 +109,6 @@ const NewUserForm = () => {
             name="lname"
             className="input"
           />
-          {lastNameHasError && (
-            <p className={classes["error-text"]}>Моля, попълнете.</p>
-          )}
         </div>
         <div className={classes.control}>
           <Dropdown selected={selected} setSelected={setSelected} />
@@ -121,18 +117,20 @@ const NewUserForm = () => {
         <div className={classes.control}>
           <input type="address" placeholder="Адрес" />
         </div>
-        <div className={emailHasError ? "control invalid" : "control"}>
+        <div className={phoneNumHasError ? "control invalid" : "control"}>
+          <input type="email" placeholder="Email адрес" />
           <input
-            onChange={emailChangeHandler}
-            onBlur={emailBlurHandler}
-            type="email"
-            placeholder="Email адрес"
+            onChange={phoneNumChangeHandler}
+            onBlur={phoneNumBlurHandler}
+            type="tel"
             className="input"
+            placeholder="Телефон"
           />
-          {emailHasError && (
-            <p className={classes["error-text"]}>Моля, попълнете.</p>
+          {phoneNumHasError && (
+            <div className={classes.phoneErrorContainer}>
+              <p className={classes["error-text"]}>Моля, попълнете.</p>
+            </div>
           )}
-          <input type="tel" placeholder="Телефон" />
         </div>
         <div className={classes.profileTitle}>
           <h5>Профил</h5>
@@ -157,10 +155,18 @@ const NewUserForm = () => {
           </div>
           <div className={classes["pass-requirments"]}>
             <h4>Паролата трябва да съдържа:</h4>
-            <p>Малки букви</p>
-            <p>Големи букви</p>
-            <p>Цифри</p>
-            <p>Специален символ</p>
+            <p>
+              <i className="fa-solid fa-check"></i>Малки букви
+            </p>
+            <p>
+              <i className="fa-solid fa-check"></i>Големи букви
+            </p>
+            <p>
+              <i className="fa-solid fa-check"></i>Цифри
+            </p>
+            <p>
+              <i className="fa-solid fa-check"></i>Специален символ
+            </p>
           </div>
         </div>
         <div>

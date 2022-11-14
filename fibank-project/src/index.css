@@ -24,3 +24,48 @@
   text-align: left;
   padding: 0.35rem;
 }
+
+@media screen and (max-width: 595px) {
+  .form {
+    max-width: 25rem;
+  }
+
+  .control {
+    margin-top: 0.5rem;
+  }
+
+  .control input {
+    font-size: 0.6rem;
+  }
+
+  .heading h5 {
+    font-size: 0.5rem;
+  }
+
+  .heading h3 {
+    margin: 0 auto;
+    font-weight: normal;
+    font-size: 0.8rem;
+  }
+}
+
+@media only screen and (min-width: 889px) {
+  .control input {
+    font-size: 0.5rem;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .form {
+    max-width: 45rem;
+    background-color: red;
+  }
+
+  .profileTitle h5 {
+    margin-top: 2rem;
+  }
+
+  .control input {
+    font-size: 0.6rem;
+  }
+}

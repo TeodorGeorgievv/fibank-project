@@ -3,9 +3,12 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import Layout from "./components/Layout/Layout";
 import RegistrationForm from "./pages/RegistrationForm";
+import Footer from "./components/Layout/Footer";
+
 
 function App() {
   return (
+    <>
       <Layout>
         <Switch>
           <Route path="/" exact>
@@ -19,6 +22,8 @@ function App() {
           </Route>
         </Switch>
       </Layout>
+      <Footer />
+    </>
   );
 }
 
