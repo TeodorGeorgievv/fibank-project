@@ -1,12 +1,69 @@
 import React, { useState } from "react";
+
+import useInput from "../../hooks/use-input";
+
 import { Link } from "react-router-dom";
 import classes from "./NewUserForm.module.css";
 import Dropdown from "../UI/Dropdown";
 import zxcvbn from "zxcvbn";
 
+const isNotEmpty = (value) => value.trim() !== "";
+const isEmail = (value) => value.includes("@");
+
 const NewUserForm = () => {
+  //Validating first name input using custom hook
+
+  const {
+    value: firstNameValue,
+    isValid: firstNameIsValid,
+    hasError: firstNameHasError,
+    valueChangeHandler: firstNameChangeHandler,
+    inputBlurHandler: firstNameBlurHandler,
+    reset: resetFirstName,
+  } = useInput(isNotEmpty);
+
+  const {
+    value: lastNameValue,
+    isValid: lastNameIsValid,
+    hasError: lastNameHasError,
+    valueChangeHandler: lastNameChangeHandler,
+    inputBlurHandler: lastNameBlurHandler,
+    reset: resetLastName,
+  } = useInput(isNotEmpty);
+
+  //Validating email input using custom hook
+
+  const {
+    value: emailValue,
+    isValid: emailIsValid,
+    hasError: emailHasError,
+    valueChangeHandler: emailChangeHandler,
+    inputBlurHandler: emailBlurHandler,
+    reset: resetEmail,
+  } = useInput(isEmail);
+
   const [selected, setSelected] = useState("Град");
   const [score, setScore] = useState(0);
+
+  let formIsValid = false;
+
+  if (firstNameIsValid && lastNameIsValid && emailIsValid) {
+    formIsValid = true;
+  }
+
+  const submitHandler = (event) => {
+    event.preventDefault();
+
+    if (!formIsValid) {
+      return;
+    }
+
+    console.log("Submitted!");
+    console.log(firstNameValue, lastNameValue, emailValue);
+    resetFirstName();
+    resetLastName();
+    resetEmail();
+  };
 
   const testStrengthPassword = (e) => {
     if (e.target.value !== "") {
@@ -23,7 +80,7 @@ const NewUserForm = () => {
         <div className={classes.btnContainer}>
           <Link to="/login">
             <h5>
-              <i class="fa fa-chevron-left"></i> Назад
+              <i className="fa fa-chevron-left"></i> Назад
             </h5>
           </Link>
         </div>
@@ -32,10 +89,30 @@ const NewUserForm = () => {
       <div className={classes.dataTitle}>
         <h5>Лични данни</h5>
       </div>
-      <form>
-        <div className={classes.control}>
-          <input type="text" placeholder="Име" name="fname" />
-          <input type="text" placeholder="Фамилия" name="lname" />
+      <form onSubmit={submitHandler}>
+        <div className={firstNameHasError ? "control invalid" : "control"}>
+          <input
+            onChange={firstNameChangeHandler}
+            onBlur={firstNameBlurHandler}
+            type="text"
+            placeholder="Име"
+            name="fname"
+            className="input"
+          />
+          {firstNameHasError && (
+            <p className={classes["error-text"]}>Моля, попълнете.</p>
+          )}
+          <input
+            onChange={lastNameChangeHandler}
+            onBlur={lastNameBlurHandler}
+            type="text"
+            placeholder="Фамилия"
+            name="lname"
+            className="input"
+          />
+          {lastNameHasError && (
+            <p className={classes["error-text"]}>Моля, попълнете.</p>
+          )}
         </div>
         <div className={classes.control}>
           <Dropdown selected={selected} setSelected={setSelected} />
@@ -44,8 +121,17 @@ const NewUserForm = () => {
         <div className={classes.control}>
           <input type="address" placeholder="Адрес" />
         </div>
-        <div className={classes.control}>
-          <input type="email" placeholder="Email адрес" />
+        <div className={emailHasError ? "control invalid" : "control"}>
+          <input
+            onChange={emailChangeHandler}
+            onBlur={emailBlurHandler}
+            type="email"
+            placeholder="Email адрес"
+            className="input"
+          />
+          {emailHasError && (
+            <p className={classes["error-text"]}>Моля, попълнете.</p>
+          )}
           <input type="tel" placeholder="Телефон" />
         </div>
         <div className={classes.profileTitle}>
@@ -80,33 +166,30 @@ const NewUserForm = () => {
         <div>
           <div className={classes["radio-type"]}>
             <p>Тип посредничество:</p>
-            <div>
-              <input type="radio" id="broker" name="type" />
-              <label htmlFor="broker">Посредник</label>
-            </div>
-            <div>
-              <input type="radio" id="companyAssociate" name="type" />
-              <label htmlFor="companyAssociate">Посредник</label>
-            </div>
-            <div>
-              <input type="radio" id="privateAssociate" name="type" />
-              <label htmlFor="privateAssociate">Посредник</label>
-            </div>
+
+            <input type="radio" id="broker" name="type" />
+            <label htmlFor="broker">Посредник</label>
+
+            <input type="radio" id="companyAssociate" name="type" />
+            <label htmlFor="companyAssociate">Сътрудник (ЮЛ)</label>
+
+            <input type="radio" id="privateAssociate" name="type" />
+            <label htmlFor="privateAssociate">Сътрудник (ФЛ)</label>
           </div>
           <div className={classes["radio-contract"]}>
             <p>Имате ли сключен договор с Банката?</p>
-            <div>
-              <input type="radio" id="trueBool" name="contract" />
-              <label htmlFor="trueBool">Имам</label>
-            </div>
-            <div>
-              <input type="radio" id="falseBool" name="contract" />
-              <label htmlFor="falseBool">Нямам</label>
-            </div>
+
+            <input type="radio" id="trueBool" name="contract" />
+            <label htmlFor="trueBool">Имам</label>
+
+            <input type="radio" id="falseBool" name="contract" />
+            <label htmlFor="falseBool">Нямам</label>
           </div>
         </div>
         <div className={classes["button-container"]}>
-          <button className={classes.registerBtn}>Регистрация</button>
+          <button disabled={!formIsValid} className={classes.registerBtn}>
+            Регистрация
+          </button>
         </div>
       </form>
     </section>

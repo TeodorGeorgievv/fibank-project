@@ -11,7 +11,7 @@ const Dropdown = ({ selected, setSelected }) => {
         className={classes["dropdown-btn"]}
       >
         {selected}
-        <i class="fa fa-chevron-down"></i>
+        <i className="fa fa-chevron-down"></i>
         
       </div>
       {isActive && (

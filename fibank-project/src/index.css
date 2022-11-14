@@ -4,3 +4,23 @@
   box-sizing: border-box;
 }
 
+.invalid .input {
+  border: 1px solid #c36b70;
+}
+
+.control {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.5em;
+  margin-bottom: 0.9rem;
+  margin-top: 1.2rem;
+}
+
+.control input {
+  background-color: #fff;
+  border-radius: 3px;
+  border: 1px solid #8a8886;
+  width: 100%;
+  text-align: left;
+  padding: 0.35rem;
+}
