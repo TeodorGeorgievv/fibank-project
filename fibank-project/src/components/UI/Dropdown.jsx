@@ -7,7 +7,7 @@ const Dropdown = ({ selected, setSelected }) => {
   return (
     <div className={classes.dropdown}>
       <div
-        onClick={(e) => setIsActive(!isActive)}
+        onClick={() => setIsActive(!isActive)}
         className={classes["dropdown-btn"]}
       >
         {selected}
@@ -17,7 +17,7 @@ const Dropdown = ({ selected, setSelected }) => {
         <div className={classes["dropdown-content"]}>
           {options.map((option) => (
             <div
-              onClick={(e) => {
+              onClick={() => {
                 setSelected(option);
                 setIsActive(false);
               }}
